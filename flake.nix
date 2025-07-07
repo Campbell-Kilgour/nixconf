@@ -16,7 +16,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
   };
 
   outputs = { self, home-manager, nixpkgs, ... }@inputs:
@@ -35,16 +35,16 @@
         forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
       overlays = import ./overlays { inherit inputs; };
       nixosConfigurations = {
-        ck-desk = nixpkgs.lib.nixosSystem {
+        your-host = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs; };
-          modules = [ ./hosts/ck-desk ];
+          modules = [ ./hosts/your-host ];
         };
       };
       homeConfigurations = {
-        "ck-desk@ck-desk" = home-manager.lib.homeManagerConfiguration {
+        "your-name@your-host" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages."x86_64-linux";
           extraSpecialArgs = { inherit inputs outputs; };
-          modules = [ ./home/ck-desk/ck-desk.nix ];
+          modules = [ ./home/your-name/your-host.nix ];
         };
       };
     };
